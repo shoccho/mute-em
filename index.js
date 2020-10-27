@@ -9,7 +9,16 @@ const fs = require('fs');
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js') );
-  
+
+
+readToken = function(){
+    fs.readFile('./token', (err, data) => { 
+        if (err) throw err; 
+        
+        client.login(data.toString());
+    });
+}
+
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
@@ -44,6 +53,5 @@ client.on('message',async message => {
 
 client.once('ready',()=>{
     console.log("onilne");
-})
-
-client.login('NzcwMzcxNDI4NjQwODgyNzE4.X5cmTQ.7cXlPROLyGDipACaqscCMkJ-9Sk');
+});
+readToken();
