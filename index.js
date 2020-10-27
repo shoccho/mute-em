@@ -51,7 +51,7 @@ client.on('message',async message => {
 
 });
 
-client.once('ready',()=>{
-    console.log("onilne");
-});
 readToken();
+client.on('ready', () => {
+    client.user.setActivity('-help', { type: 'LISTENING' });
+});
